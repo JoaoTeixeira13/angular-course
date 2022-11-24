@@ -1,5 +1,6 @@
 import {
   animate,
+  group,
   keyframes,
   state,
   style,
@@ -97,8 +98,10 @@ import { Component } from '@angular/core';
         ),
       ]),
       transition('* => void', [
-        style({ opacity: 1, transform: 'translateX(100px)' }),
-        animate(300, style({ opacity: 0, transform: 'translateX(-100px)' })),
+        group([
+          animate(800, style({ opacity: 0, transform: 'translateX(-100px)' })),
+          animate(300, style({ color: 'red' })),
+        ]),
       ]),
     ]),
   ],
@@ -116,6 +119,13 @@ export class AppComponent {
     this.wildState === 'normal'
       ? (this.wildState = 'highlighted')
       : (this.wildState = 'normal');
+  }
+
+  animationStarted(event) {
+    console.log('event reveal, ', event);
+  }
+  animationEnded(event) {
+    console.log('event vanished, ', event);
   }
   onShrink() {
     console.log('item will shrink');
