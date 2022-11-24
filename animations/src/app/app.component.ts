@@ -1,5 +1,6 @@
 import {
   animate,
+  keyframes,
   state,
   style,
   transition,
@@ -68,6 +69,33 @@ import { Component } from '@angular/core';
         })
       ),
       transition('void => *', [animate(300)]),
+      transition('* => void', [
+        style({ opacity: 1, transform: 'translateX(100px)' }),
+        animate(300, style({ opacity: 0, transform: 'translateX(-100px)' })),
+      ]),
+    ]),
+    trigger('list2', [
+      state(
+        'in',
+        style({
+          opacity: 1,
+          transform: 'translateX(0)',
+        })
+      ),
+      transition('void => *', [
+        animate(
+          1000,
+          keyframes([
+            style({ transform: 'translateX(-100px)', opacity: 0, offset: 0 }),
+            style({
+              transform: 'translateX(-40px)',
+              opacity: 0.5,
+              offset: 0.3,
+            }),
+            style({ transform: 'translateX(-15px)', opacity: 1, offset: 1 }),
+          ])
+        ),
+      ]),
       transition('* => void', [
         style({ opacity: 1, transform: 'translateX(100px)' }),
         animate(300, style({ opacity: 0, transform: 'translateX(-100px)' })),
